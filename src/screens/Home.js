@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
-import theme from '../themes/theme'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import React from 'react';
+import theme from '../themes/theme';
+
 
 
 const Home = ({ navigation }) => {
@@ -58,7 +59,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#DDDDDD',
     padding: 10,
     marginTop: 20,
-    width: '70%'
+    width: '70%',
+    borderRadius: 8
   },
 
   textBtn:{

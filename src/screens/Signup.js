@@ -97,7 +97,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#DDDDDD',
     padding: 10,
     marginTop: 20,
-    width: '50%'
+    width: '50%',
+    borderRadius: 8
   },
 
   textBtn:{

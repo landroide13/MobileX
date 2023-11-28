@@ -1,10 +1,38 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, FlatList } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import axiosClient from '../axios-client';
 
 const SubjectList = ({ navigation }) => {
+
+const [ subjects, setSubjects ] = useState([])
+const [loading, setLoading] = useState(false);
+
+const getSubjects = () =>{
+    setLoading(true)
+    axiosClient.get('/lectures')
+    .then(({ data }) => {
+    setSubjects(data.data)
+    setLoading(false)
+    })
+    .catch(() => {
+        const response = err.response;
+    if (response && response.status === 422) {
+        setErrors(response.data.errors)
+    }
+        setLoading(false)
+    })
+}
+
+useEffect(() => {
+    getSubjects();
+})
+
+
   return (
     <View style={ styles.container }>
       <Text style={ styles.title }>Subjects List</Text>
+
+
     </View>
   )
 }
@@ -30,5 +58,12 @@ const styles = StyleSheet.create({
       link:{
         color: theme.lightColors.gray,
         fontSize: 18,
+      },
+
+      item: {
+        backgroundColor: theme.lightColors.gray,
+        padding: 20,
+        marginVertical: 8,
+        marginHorizontal: 16,
       },
 })
