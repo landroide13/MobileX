@@ -2,16 +2,11 @@ import 'react-native-gesture-handler';
 
 import React, { useState } from 'react';
 import { useFonts, Lato_100Thin, Lato_400Regular, Lato_700Bold } from '@expo-google-fonts/lato';
-import { NavigationContainer } from '@react-navigation/native';
-import GeneralStack from './src/navigation/GeneralStack';
-
-import { ThemeProvider } from '@rneui/themed';
+import { Asset } from 'expo-asset';
 import EStyleSheet from 'react-native-extended-stylesheet';
-
 import AppLoading from 'expo-app-loading';
-
-import theme from './src/themes/theme';
-require('./src/themes')
+import { RootSiblingParent } from 'react-native-root-siblings';
+import { AuthProvider } from './src/providers/AuthProvider';
 
 export default function App() {
 
@@ -32,18 +27,15 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-       <ThemeProvider theme={theme}>
-        <GeneralStack />
-      </ThemeProvider>
-    </NavigationContainer>
+    <RootSiblingParent>
+      <AuthProvider />
+    </RootSiblingParent>
   );
 }
 
-
 const _cacheResourceAsync = () => {
   const images = [
-    require('./assets/icon.png')
+    require('./assets/home.png')
   ]
 
   const cacheImages = images.map(image => {
@@ -52,7 +44,6 @@ const _cacheResourceAsync = () => {
 
   return Promise.all(cacheImages);
 }
-
 
 const styles = EStyleSheet.create({
   container:{

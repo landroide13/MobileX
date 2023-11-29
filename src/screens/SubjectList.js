@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import axiosClient from '../axios-client';
+import axiosInstance from '../axios-client';
 
 const SubjectList = ({ navigation }) => {
 
@@ -9,7 +9,7 @@ const [loading, setLoading] = useState(false);
 
 const getSubjects = () =>{
     setLoading(true)
-    axiosClient.get('/lectures')
+    axiosInstance.get('/lectures')
     .then(({ data }) => {
     setSubjects(data.data)
     setLoading(false)

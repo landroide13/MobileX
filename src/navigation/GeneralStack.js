@@ -8,7 +8,7 @@ import theme from '../themes/theme'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SubjectList from '../screens/SubjectList';
 import Attendance from '../screens/Attendance';
-
+import { NavigationContainer } from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,12 +22,12 @@ const GeneralStack = () => {
         headerStyle: { backgroundColor: theme.lightColors.background }
       }} 
       initialRouteName='Login'>
-      <Stack.Screen  name='Login' component={Login}/>
-      <Stack.Screen name='Signup' component={Signup} />
-      <Stack.Screen name='Home' component={Home} />
-      <Stack.Screen name='Subjects' component={SubjectList} />
-      <Stack.Screen name='Attendance' component={Attendance} />
-    </Stack.Navigator>
+          <Stack.Screen  name='Login' component={Login}/>
+          <Stack.Screen name='Signup' component={Signup} />
+          {/* <Stack.Screen name='Home' component={Home} />
+          <Stack.Screen name='Subjects' component={SubjectList} />
+          <Stack.Screen name='Attendance' component={Attendance} /> */}
+    </Stack.Navigator>    
   )
 }
 
