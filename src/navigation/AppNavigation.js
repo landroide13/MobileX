@@ -3,7 +3,7 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import GeneralStack from './GeneralStack'
 import UserStack from './UserStack'
-import theme from '../themes/index';
+import theme from '../themes/theme';
 import { ThemeProvider } from '@rneui/themed';
 
 const AppNavigation = ({ userToken }) => {

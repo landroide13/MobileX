@@ -1,39 +1,37 @@
-import { StyleSheet, Text, View, FlatList } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, Image, SafeAreaView } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import axiosInstance from '../axios-client';
+
+import { getSubjects } from '../services/SubjectsService';
 
 const SubjectList = ({ navigation }) => {
 
 const [ subjects, setSubjects ] = useState([])
 const [loading, setLoading] = useState(false);
 
-const getSubjects = () =>{
-    setLoading(true)
-    axiosInstance.get('/lectures')
-    .then(({ data }) => {
-    setSubjects(data.data)
-    setLoading(false)
-    })
-    .catch(() => {
-        const response = err.response;
-    if (response && response.status === 422) {
-        setErrors(response.data.errors)
-    }
-        setLoading(false)
-    })
-}
-
 useEffect(() => {
-    getSubjects();
-})
-
-
+  (async () => {
+      const _subjects = await getSubjects()
+      setSubjects(_subjects)
+  })()
+}, [])
+  
   return (
-    <View style={ styles.container }>
+    <SafeAreaView style={ styles.container }>
       <Text style={ styles.title }>Subjects List</Text>
-
-
-    </View>
+        <ScrollView>
+            <View>
+              {
+                subjects.map(subject => {
+                  return(
+                    <View key={subject.id} style={ styles.item }>
+                      <Text style={ styles.title }>{ subject.lecture_name } text </Text>
+                    </View>
+                  )
+                })
+                }
+            </View>
+        </ScrollView>
+    </SafeAreaView>
   )
 }
 
@@ -41,7 +39,7 @@ export default SubjectList
 
 const styles = StyleSheet.create({
     container:{
-        flex: 1,
+        flex: 1,  
         backgroundColor: theme.lightColors.background,
         alignItems: 'center',
         justifyContent: 'center',
@@ -51,8 +49,8 @@ const styles = StyleSheet.create({
     
       title: {
         fontSize: 28,
-        color: theme.lightColors.gray,
-        fontWeight: theme.fonts.$fontWeight900    
+        color: theme.lightColors.background,
+        fontWeight: '600'    
       },
     
       link:{
@@ -65,5 +63,6 @@ const styles = StyleSheet.create({
         padding: 20,
         marginVertical: 8,
         marginHorizontal: 16,
+        borderRadius: 8
       },
 })

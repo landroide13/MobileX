@@ -3,9 +3,10 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import EmailInput from '../components/inputs/EmailInput'
 import PasswordInput from '../components/inputs/PasswordInput'
-import { Button } from '@rneui/base';
-import { useTheme } from '@rneui/themed';
 import theme from '../themes/theme'
+import { login } from '../services/AuthServices'
+
+import { useAuth } from '../providers/AuthProvider'
 
 const Login = ({ navigation }) => {
 
@@ -13,14 +14,29 @@ const Login = ({ navigation }) => {
   const [loading, setLoading] = useState(false)
   const [secureEntry, setSecureEntry] = useState(true)
   const { control, handleSubmit, formState:{ errors } } = useForm()
+  const { handleLogin } = useAuth()
 
   const toggleSecureEntry = () =>{
     setSecureEntry(!setSecureEntry)
 }
  
-const onLogin = () => {
-  navigation.navigate('Home')
-}
+  const _login = async(data) =>{
+    try {
+        setLoading(false)
+        const res = await login(data)
+        await handleLogin(res.data)
+        Toast.show(
+            res.message,
+            {
+                position: Toast.positions.CENTER,
+            }
+        )
+        
+    } catch (error) {
+        setError(error.message)
+        setLoading(false)
+    }
+  }
 
 
   return (
@@ -50,8 +66,7 @@ const onLogin = () => {
         toggleSecuryEntry={toggleSecureEntry}
       />   
 
-
-      <TouchableOpacity style={styles.button} onPress={onLogin}>
+      <TouchableOpacity style={styles.button} onPress={handleSubmit(_login)}>
         <Text style={ styles.textBtn }>Login</Text>
       </TouchableOpacity>
 

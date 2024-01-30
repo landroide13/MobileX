@@ -3,8 +3,9 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import EmailInput from '../components/inputs/EmailInput'
 import PasswordInput from '../components/inputs/PasswordInput'
-import { Button } from '@rneui/base';
+import { ActivityLoader } from '../../src/components/shared/Shared'
 import theme from '../themes/theme'
+import { signup } from '../services/AuthServices'
 
 const Signup = ({ navigation }) => {
   const [error, setError] = useState(null)
@@ -16,8 +17,22 @@ const Signup = ({ navigation }) => {
     setSecureEntry(!setSecureEntry)
 }
 
-const onLogin = () =>{
-  navigation.navigate('Home')
+const _signup = async(data) =>{
+
+  try {
+      setLoading(true)
+      const message = await signup(data)
+      await navigation.navigate('Login')
+      Toast.show(
+          message,
+          {}
+      )
+    } catch (error) {
+        setError(error.message)
+    }finally{
+        setLoading(false)
+    }
+
 }
 
   return (
@@ -28,6 +43,8 @@ const onLogin = () =>{
         source={require('../../assets/educate.png')} />
 
       <Text style={ styles.title }>Signup</Text> 
+
+      { loading ? <ActivityLoader /> : null}
 
       <EmailInput 
         name='email' 
@@ -57,13 +74,13 @@ const onLogin = () =>{
         toggleSecuryEntry={toggleSecureEntry}
       />      
 
-      <TouchableOpacity style={styles.button} onPress={onLogin}>
+      <TouchableOpacity style={styles.button}  onPress={handleSubmit(_signup)}>
         <Text style={ styles.textBtn }>Signup</Text>
       </TouchableOpacity>
 
       <Text 
         style={styles.link} 
-        onPress={() => navigation.navigate('Login')}>Create Account</Text>
+        onPress={() => navigation.navigate('Login')}>Already have an Account</Text>
 
     </View>
   )

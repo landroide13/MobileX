@@ -1,11 +1,11 @@
 import React from "react";
+import { Platform } from 'react-native'
 import axios from "axios";
 import * as SecureStore from "expo-secure-store";
-import  Constants  from "expo-constants";
-//import { USER_TOKEN_KEY } from "../providers/AuthProvider";
+import { USER_TOKEN_KEY } from "../src/providers/AuthProvider";
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost/api' + '/',
+    baseURL: Platform.OS === 'android' ? 'http://10.0.2.2/api/' : 'http://localhost/api/',
     timeout: 5000,
     headers:{
         'Content-Type': 'application/json',
@@ -13,12 +13,10 @@ const axiosInstance = axios.create({
     }
 })
 
-/*
 axiosInstance.interceptors.request.use(async req => {
     const access_token = await SecureStore.getItemAsync(USER_TOKEN_KEY)
     req.headers.Authorization = `Bearer ${access_token}`
     return req
 })
-*/
 
 export default axiosInstance

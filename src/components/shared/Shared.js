@@ -1,6 +1,5 @@
-import { StyleSheet, View, ActivityIndicator } from 'react-native'
+import { View, ActivityIndicator } from 'react-native'
 import React from 'react'
-import EStyleSheet from 'react-native-extended-stylesheet';
 
 export const ActivityLoader = () => {
     return (

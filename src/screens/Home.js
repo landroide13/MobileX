@@ -1,13 +1,12 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+//import EStyleSheet from 'react-native-extended-stylesheet';
 import React from 'react';
-import theme from '../themes/theme';
-
 
 
 const Home = ({ navigation }) => {
 
   const onExit = () => {
-    navigation.navigate('Login')
+    navigation.navigate('/Login')
   }
 
   return (
@@ -37,7 +36,7 @@ const Home = ({ navigation }) => {
 }
 
 export default Home
-
+  
 const styles = StyleSheet.create({
   container:{
     flex: 1,
@@ -51,7 +50,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     color: theme.lightColors.gray,
-    fontWeight: theme.fonts.$fontWeight900    
+    fontWeight: '600'   
   },
 
   button: {
@@ -66,7 +65,7 @@ const styles = StyleSheet.create({
   textBtn:{
     fontSize: 25,
     color: theme.lightColors.background,
-    fontWeight: theme.fonts.$fontWeight900
+    fontWeight: '600'
   },
 
 })

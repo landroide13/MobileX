@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
       title: {
         fontSize: 28,
         color: theme.lightColors.gray,
-        fontWeight: theme.fonts.$fontWeight900    
+        fontWeight: '600'    
       },
     
       link:{
